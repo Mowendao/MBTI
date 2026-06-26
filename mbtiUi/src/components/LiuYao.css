@@ -1,0 +1,771 @@
+/* ========== 通用 ========== */
+.liuyao-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.liuyao-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.liuyao-header h1 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.liuyao-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ========== 模式选择 ========== */
+.liuyao-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.liuyao-mode-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: 2px solid transparent;
+}
+
+.liuyao-mode-card:hover {
+  border-color: var(--primary-start);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.mode-icon {
+  font-size: 3rem;
+  margin-bottom: 0.8rem;
+}
+
+.liuyao-mode-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+}
+
+.liuyao-mode-card p {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+.mode-tag {
+  display: inline-block;
+  background: #f0f0f0;
+  color: var(--text-secondary);
+  padding: 0.2rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.liuyao-mode-footer {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* ========== 问卦输入 ========== */
+.liuyao-question-input-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.question-input-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.liuyao-question-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e8e8e8;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.liuyao-question-textarea:focus {
+  outline: none;
+  border-color: var(--primary-start);
+}
+
+.question-input-hint {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: 0.8rem 0;
+  text-align: left;
+}
+
+.question-input-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.2rem;
+}
+
+.liuyao-divine-btn {
+  padding: 0.8rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.liuyao-divine-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.liuyao-divine-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========== 摇卦动画 ========== */
+.liuyao-shaking-animation {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.shaking-coins {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.coin-yao {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  transition: all 0.4s ease;
+}
+
+.coin-yao.hidden {
+  background: #f0f0f0;
+  color: #ccc;
+}
+
+.coin-yao.revealed {
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+  color: white;
+  animation: coinReveal 0.5s ease;
+}
+
+@keyframes coinReveal {
+  0% { transform: rotateY(0) scale(0.5); opacity: 0; }
+  50% { transform: rotateY(180deg) scale(1.2); }
+  100% { transform: rotateY(360deg) scale(1); opacity: 1; }
+}
+
+.shaking-progress {
+  margin-bottom: 1.5rem;
+}
+
+.shaking-progress p {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.shaking-bar {
+  width: 200px;
+  height: 6px;
+  background: #eee;
+  border-radius: 3px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.shaking-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.shaking-question {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* ========== 用户问题展示 ========== */
+.liuyao-user-question {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+.question-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.question-text {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* MBTI 迷你卡片（问卦模式） */
+.mbti-mini-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  background: var(--bg-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.mbti-mini-badge {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  background: var(--primary-gradient);
+  padding: 0.2rem 0.8rem;
+  border-radius: 8px;
+  letter-spacing: 0.1em;
+}
+
+.mbti-mini-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* AI 按钮 */
+.primary-button.ai-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.primary-button.ai-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.primary-button.ai-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ========== 进度条 ========== */
+.liuyao-progress {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+.liuyao-progress-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.liuyao-progress-dot.active {
+  background: var(--primary-start);
+  color: white;
+  transform: scale(1.15);
+}
+
+.liuyao-progress-dot.done {
+  background: #4caf50;
+  color: white;
+}
+
+.liuyao-dot-inner {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* ========== 题目 ========== */
+.liuyao-question-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
+  animation: questionSlideIn 0.35s ease-out;
+}
+
+.liuyao-question-badge {
+  display: inline-block;
+  background: var(--primary-gradient);
+  color: white;
+  padding: 0.25rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.liuyao-scenario {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.liuyao-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.liuyao-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.2rem;
+  border: 2px solid #e8e8e8;
+  border-radius: var(--radius-sm);
+  background: var(--bg-white);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.liuyao-option:hover {
+  border-color: var(--primary-start);
+  background: #f8f8ff;
+  transform: translateX(4px);
+}
+
+.liuyao-option-label {
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--primary-start);
+  min-width: 5rem;
+}
+
+.liuyao-option-text {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+/* ========== 导航 ========== */
+.liuyao-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.liuyao-nav-btn {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--primary-start);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--primary-start);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.liuyao-nav-btn:hover {
+  background: var(--primary-start);
+  color: white;
+}
+
+.liuyao-step-indicator {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ========== 已选预览 ========== */
+.liuyao-preview {
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.liuyao-yao-strip {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.liuyao-yao-tag {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.liuyao-yao-tag.yang {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.liuyao-yao-tag.yin {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.liuyao-yao-tag.empty {
+  background: #f5f5f5;
+  color: #ccc;
+}
+
+.liuyao-preview-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* ========== 结果页 ========== */
+.liuyao-result-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.liuyao-result-header h1 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+/* 双卦对比 */
+.hexagram-compare {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.hexagram-box {
+  background: var(--bg-white);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  min-width: 140px;
+}
+
+.hexagram-box h4 {
+  margin: 0 0 0.8rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.hexagram-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.hexagram-arrow {
+  font-size: 1.5rem;
+  color: var(--primary-start);
+  font-weight: 700;
+}
+
+/* 爻线 */
+.yao-line {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.yao-bar {
+  height: 8px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.yang-bar {
+  width: 80px;
+  background: #e65100;
+}
+
+.yin-bar {
+  width: 80px;
+  gap: 0;
+}
+
+.yin-seg {
+  flex: 1;
+  height: 8px;
+  background: #1565c0;
+  border-radius: 2px;
+}
+
+.yin-gap {
+  width: 16px;
+}
+
+.changing .yang-bar {
+  background: #c62828;
+}
+
+.changing .yin-seg {
+  background: #c62828;
+}
+
+.yao-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  position: absolute;
+  right: -1.2rem;
+}
+
+/* 卦象信息 */
+.liuyao-section {
+  margin-bottom: 1.5rem;
+}
+
+.liuyao-section h2 {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+}
+
+.hexagram-info-card {
+  background: var(--bg-white);
+  padding: 1.2rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 0.8rem;
+  border-left: 4px solid var(--primary-start);
+}
+
+.hexagram-info-card.changed {
+  border-left-color: #e74c3c;
+}
+
+.hexagram-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.hexagram-meaning {
+  font-size: 1rem;
+  color: var(--primary-start);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.hexagram-advice {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.moving-yao-info {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.moving-yao-info strong {
+  color: #e74c3c;
+}
+
+/* 六爻详情 */
+.yao-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.yao-detail-item {
+  background: var(--bg-white);
+  padding: 0.8rem 1.2rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  border-left: 3px solid #ddd;
+}
+
+.yao-detail-item.changing {
+  border-left-color: #e74c3c;
+  background: #fef2f2;
+}
+
+.yao-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.yao-detail-pos {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.yao-detail-type {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.yao-detail-badge {
+  background: #e74c3c;
+  color: white;
+  padding: 0.1rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.yao-detail-line {
+  margin: 0.3rem 0;
+}
+
+.yao-detail-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* MBTI 结果 */
+.mbti-result-card {
+  background: var(--bg-white);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.mbti-type-badge {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  background: var(--primary-gradient);
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.15em;
+}
+
+.mbti-analysis {
+  text-align: left;
+}
+
+.mbti-analysis p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+/* 操作按钮 */
+.liuyao-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .liuyao-container {
+    padding: 1rem;
+  }
+
+  .liuyao-mode-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hexagram-compare {
+    gap: 0.8rem;
+  }
+
+  .hexagram-box {
+    min-width: 110px;
+    padding: 1rem;
+  }
+
+  .yang-bar, .yin-bar {
+    width: 60px;
+  }
+
+  .liuyao-question-card {
+    padding: 1.2rem;
+  }
+
+  .liuyao-scenario {
+    font-size: 1rem;
+  }
+
+  .liuyao-option {
+    padding: 0.8rem;
+  }
+
+  .liuyao-option-label {
+    min-width: 4rem;
+    font-size: 0.8rem;
+  }
+
+  .mbti-type-badge {
+    font-size: 1.5rem;
+    padding: 0.3rem 1rem;
+  }
+
+  .shaking-coins {
+    gap: 0.5rem;
+  }
+
+  .coin-yao {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}
