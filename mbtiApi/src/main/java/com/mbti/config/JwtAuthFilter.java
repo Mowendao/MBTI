@@ -27,24 +27,30 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        // 第一步：从请求头里提取 Token
         String token = extractToken(request);
 
+        // 第二步：验证 Token 的合法性
         if (StringUtils.hasText(token) && jwtUtil.validateToken(token)) {
             Long userId = jwtUtil.getUserId(token);
             String role = jwtUtil.getRole(token);
 
+            // 把角色包装成 Spring Security 认识的格式
             List<SimpleGrantedAuthority> authorities = List.of(
                     new SimpleGrantedAuthority("ROLE_" + role)
             );
 
+            // 创建一个 Authentication 对象，塞给 SecurityContext
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(userId, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
+        // 第三步：放行请求
         filterChain.doFilter(request, response);
     }
 
+    // 从请求头 Authorization: Bearer xxx 中提取 xxx
     private String extractToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

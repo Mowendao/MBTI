@@ -22,60 +22,96 @@ import Home from '@/components/Home';
 import Test from '@/components/Test';
 import Result from '@/components/Result';
 import About from '@/components/About';
+import SharePage from '@/components/SharePage';
+import TypeExplore from '@/components/TypeExplore';
+import TypeGallery from '@/components/TypeGallery';
+import AiFortunePark from '@/components/AiFortunePark';
+import AiTypeManagement from '@/components/admin/AiTypeManagement';
 import '@/App.css';
 
-function Layout() {
+function Navbar() {
   const { user, logout } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="App">
-      <nav className="navbar">
-        <div className="navbar-container">
-          <NavLink to="/" className="navbar-logo">
-            MBTI系统
+    <>
+      <nav className="nb">
+        <div className="nb-inner">
+          <NavLink to="/" className="nb-logo">
+            <span className="nb-logo-icon">🧠</span>
+            <span className="nb-logo-text">MBTI</span>
+            <span className="nb-logo-badge">Pro Max</span>
           </NavLink>
-          <div className="navbar-links">
-            <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>
-              首页
+
+          <button className="nb-hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+            <span /><span /><span />
+          </button>
+
+          <div className={`nb-links ${menuOpen ? 'open' : ''}`}>
+            <NavLink to="/" end className={({ isActive }) => `nb-link ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+              🏠 首页
             </NavLink>
-            <NavLink to="/test" className={({ isActive }) => isActive ? 'active' : ''}>
-              标准测试
+            <NavLink to="/test" className={({ isActive }) => `nb-link ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+              🧪 测试
             </NavLink>
-            <NavLink to="/liuyao" className={({ isActive }) => isActive ? 'active' : ''}>
-              易经测试
+            <NavLink to="/fortune-park" className={({ isActive }) => `nb-link ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+              🎪 游乐园
             </NavLink>
-            <NavLink to="/history" className={({ isActive }) => isActive ? 'active' : ''}>
-              历史
+            <NavLink to="/explore" className={({ isActive }) => `nb-link ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+              🧩 人格
+            </NavLink>
+            <NavLink to="/gallery" className={({ isActive }) => `nb-link ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+              🎨 画廊
+            </NavLink>
+            <NavLink to="/liuyao" className={({ isActive }) => `nb-link ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+              🔮 易经
+            </NavLink>
+            <NavLink to="/history" className={({ isActive }) => `nb-link ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+              📜 历史
             </NavLink>
             {user?.role === 'ADMIN' && (
-              <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>
-                管理
+              <NavLink to="/admin" className={({ isActive }) => `nb-link nb-admin ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+                ⚙️ 管理
               </NavLink>
             )}
-            <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>
-              关于
+            <NavLink to="/about" className={({ isActive }) => `nb-link ${isActive ? 'on' : ''}`} onClick={() => setMenuOpen(false)}>
+              ℹ️ 关于
             </NavLink>
           </div>
-          <div className="navbar-user">
+
+          <div className="nb-user">
             {user ? (
               <>
-                <span className="navbar-user-name">{user.name}</span>
-                <button className="navbar-logout-btn" onClick={logout}>退出</button>
+                <span className="nb-user-name">{user.name}</span>
+                <button className="nb-logout" onClick={logout}>👋 退出</button>
               </>
             ) : (
-              <button className="navbar-login-btn" onClick={() => setShowAuth(true)}>登录</button>
+              <button className="nb-login" onClick={() => setShowAuth(true)}>🔑 登录</button>
             )}
           </div>
         </div>
       </nav>
       {showAuth && <AuthModal onClose={() => setShowAuth(false)} />}
+    </>
+  );
+}
+
+function AppLayout() {
+  const { user } = useAuth();
+
+  return (
+    <div className="App">
+      <Navbar />
 
       <ErrorBoundary>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/fortune-park" element={<AiFortunePark />} />
+          <Route path="/explore" element={<TypeExplore />} />
+          <Route path="/gallery" element={<TypeGallery />} />
           <Route path="/liuyao" element={<LiuYaoTest />} />
           <Route path="/liuyao-result" element={<LiuYaoResult />} />
           <Route path="/history" element={<History />} />
@@ -91,6 +127,7 @@ function Layout() {
             <Route path="schedules" element={<TestScheduleManagement />} />
             <Route path="test-takers" element={<TestTakerManagement />} />
             <Route path="analysis" element={<PersonalityAnalysis />} />
+            <Route path="ai-types" element={<AiTypeManagement />} />
             <Route path="api-settings" element={<ApiKeySettings />} />
           </Route>
           <Route path="*" element={<NotFound />} />
@@ -111,7 +148,10 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <Layout />
+        <Routes>
+          <Route path="/share" element={<SharePage />} />
+          <Route path="/*" element={<AppLayout />} />
+        </Routes>
       </Router>
     </AuthProvider>
   );

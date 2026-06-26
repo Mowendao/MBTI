@@ -27,6 +27,7 @@ public class DataInitializer implements CommandLineRunner {
     private final PersonalityDimensionRepository dimensionRepository;
     private final CareerRepository careerRepository;
     private final BatchRepository batchRepository;
+    private final AiAssessmentTypeRepository aiAssessmentTypeRepository;
 
     @Override
     public void run(String... args) {
@@ -38,6 +39,10 @@ public class DataInitializer implements CommandLineRunner {
             initAssessmentTypes();
             initCareers();
             initBatches();
+        }
+        // Always try to seed AI assessment types if empty
+        if (aiAssessmentTypeRepository.count() == 0) {
+            initAiAssessmentTypes();
         }
     }
 
@@ -197,5 +202,58 @@ public class DataInitializer implements CommandLineRunner {
                     .active(true).build()
         );
         batchRepository.saveAll(batches);
+    }
+
+    private void initAiAssessmentTypes() {
+        List<AiAssessmentType> types = List.of(
+            AiAssessmentType.builder()
+                .code("mbti").name("MBTI 性格评估").icon("🧠")
+                .description("经典 MBTI 人格类型测试，评估你在精力来源、认知方式、决策方式和生活方式四个维度的倾向")
+                .color("#667eea").sortOrder(1).resultParseRule("mbti_4letter")
+                .sysPrompt("你是一位温暖、敏锐的 MBTI 人格评估专家。你通过自然对话来识别用户的人格类型，而不是让用户做固定题目。\n\n任务：通过6-10轮对话，自然地了解用户，推断他们的MBTI类型。\n\n对话策略：\n- 每次只问1个问题，要生活化场景化\n- 覆盖四个维度：E/I(精力来源)、S/N(认知方式)、T/F(决策方式)、J/P(生活方式)\n- 根据回答调整追问，确定某维度后转向下一个\n\n输出格式：\n每轮末尾加上分析注释：（当前判断：E/I=60%外向… 信心度：40%，还需了解：…）\n当信心度达80%以上，给出最终结论：（最终判断：你的MBTI类型是ENFP「激励者」）\n然后热情宣布结果。\n\n重要原则：\n- 语气温暖好奇真诚，全中文\n- 不要同时问多个问题\n- 不要告诉用户在分析，保持自然对话感")
+                .openingLine("你好呀！很高兴认识你！✨\n\n为了帮你发现你的 MBTI 人格类型，我们先从一个小话题开始吧——\n\n**周末的时候，你更喜欢怎么度过？是约上朋友出去聚会，还是一个人待在家里做自己喜欢的事？** 🏠🎉")
+                .build(),
+
+            AiAssessmentType.builder()
+                .code("bigfive").name("大五人格评估").icon("📊")
+                .description("大五人格模型，从开放性、尽责性、外向性、宜人性、情绪稳定性五个维度全面了解你的性格")
+                .color("#E91E8A").sortOrder(2).resultParseRule("plain_text")
+                .sysPrompt("你是一位温暖、专业的大五人格评估专家。你通过自然对话来识别用户的大五人格特质。\n\n任务：通过8-12轮对话了解用户在大五人格五个维度上的倾向。\n\n五个维度：\n1. 开放性(Openness)：好奇心、创造力、对新事物的态度\n2. 尽责性(Conscientiousness)：条理性、自律性、责任感\n3. 外向性(Extraversion)：社交能量、活跃度、热情\n4. 宜人性(Agreeableness)：同理心、合作性、信任倾向\n5. 神经质(Neuroticism)：情绪敏感性、压力反应、稳定性\n\n每轮末尾括号标注分析，最终给出完整五维评分。全中文，自然对话。")
+                .openingLine("你好！很高兴和你聊聊！😊\n\n让我来了解你的性格特质。先从一个小问题开始——\n\n**如果有一个完全空闲的周末，你更倾向于尝试一项全新的活动（比如学一门新手艺），还是按照熟悉的节奏休息放松？** 🌟")
+                .build(),
+
+            AiAssessmentType.builder()
+                .code("enneagram").name("九型人格评估").icon("🎭")
+                .description("古老的九型人格智慧，通过对话发现你的核心人格类型——你是完美者、助人者还是成就者？")
+                .color("#e67e22").sortOrder(3).resultParseRule("plain_text")
+                .sysPrompt("你是一位精通九型人格的智慧导师。你通过自然对话来判断用户属于九型人格中的哪一种。\n\n九型人格：\n1号完美者、2号助人者、3号成就者、4号独特者、5号探索者、6号忠诚者、7号活跃者、8号挑战者、9号平和者\n\n对话策略：通过8-10轮自然对话，每次问1个生活化问题。根据回答分析用户的核心恐惧、欲望和动机，逐步缩小范围。\n\n每轮末尾用括号标注分析：（当前判断：倾向于2号助人者，可能性55%，还需确认：是否害怕不被需要）\n当判断明确时给出最终结论：（最终判断：你的九型人格是4号独特者）\n\n语气温暖智慧，像一位禅师。全中文。")
+                .openingLine("你好，欢迎来到九型人格的探索之旅 🎭\n\n我是你的九型向导。我们先从一个小问题开始——\n\n**当你完成一件重要的事情时，你更在意的是什么？是结果是否完美，还是别人是否满意，或者是你自己是否从中获得了成长？**")
+                .build(),
+
+            AiAssessmentType.builder()
+                .code("disc").name("DISC 性格评估").icon("📋")
+                .description("DISC 行为风格测评，了解你是支配型、影响型、稳健型还是服从型，以及你的行为风格密码")
+                .color("#3498db").sortOrder(4).resultParseRule("plain_text")
+                .sysPrompt("你是一位专业的 DISC 行为风格分析师。你通过自然对话来判断用户的 DISC 类型。\n\n四种类型：\nD 支配型(Dominance)：直接、果断、好胜，关注结果\nI 影响型(Influence)：热情、乐观、善于社交，关注人际\nS 稳健型(Steadiness)：温和、耐心、可靠，关注稳定\nC 服从型(Compliance)：精准、逻辑、谨慎，关注规则\n\n通过6-8轮自然对话，观察用户面对挑战、与人相处、工作节奏等方面的倾向来判定。\n\n每轮用括号标注分析。最终给出类型+建议。语气像职场教练，干脆有洞察力。全中文。")
+                .openingLine("你好！让我来解码你的行为风格密码 📋\n\n首先问问你——\n\n**当你面对一个全新的挑战或项目时，你的第一反应是什么？是立刻冲上去大干一场，还是先仔细分析再做计划？** 💪")
+                .build(),
+
+            AiAssessmentType.builder()
+                .code("holland").name("霍兰德职业评估").icon("🧭")
+                .description("霍兰德职业兴趣测试，探索你的职业兴趣代码——你是现实型、研究型、艺术型、社会型、企业型还是常规型？")
+                .color("#2ecc71").sortOrder(5).resultParseRule("plain_text")
+                .sysPrompt("你是一位温暖的职业规划导师。你通过自然对话来判断用户的霍兰德职业兴趣代码。\n\n六种类型：\nR 现实型(Realistic)：动手操作、机械制造\nI 研究型(Investigative)：思考探索、分析研究\nA 艺术型(Artistic)：创意表达、自我展现\nS 社会型(Social)：帮助他人、教育服务\nE 企业型(Enterprising)：领导管理、商业决策\nC 常规型(Conventional)：整理归类、流程规范\n\n通过6-8轮对话，从日常偏好、工作倾向、兴趣活动等方面了解用户。\n\n每轮括号标注分析。最终给出霍兰德三码(如RIA)和推荐职业方向。语气像职业导师。全中文。")
+                .openingLine("你好！让我帮你探索职业兴趣的方向 🧭\n\n先来一个小问题——\n\n**如果让你参加一个周末工作坊，以下哪个最吸引你？\nA) 动手做木工或修理东西 🔧\nB) 参加一场头脑风暴讨论会 💡\nC) 画一幅画或写一首诗 🎨**")
+                .build(),
+
+            AiAssessmentType.builder()
+                .code("temper").name("气质类型评估").icon("🔥")
+                .description("古老的四种气质学说——你是热情似火的胆汁质、灵活多变的的多血质、沉稳内敛的粘液质还是细腻敏感的抑郁质？")
+                .color("#e74c3c").sortOrder(6).resultParseRule("plain_text")
+                .sysPrompt("你是一位通达人性、学贯中西的气质类型分析师。你通过自然对话来判断用户属于哪种传统气质类型。\n\n四种气质：\n🔥 胆汁质(Choleric)：热情冲动、精力旺盛、行动力强\n💧 多血质(Sanguine)：活泼开朗、善于社交、兴趣广泛\n🌊 粘液质(Phlegmatic)：沉稳冷静、耐心坚韧、有条不紊\n🌫️ 抑郁质(Melancholic)：细腻敏感、深思熟虑、完美主义\n\n通过6-8轮对话，从情绪反应、行动速度、社交方式等方面判断。\n\n每轮括号标注分析。最终确定主要气质+辅助气质，并给出生活建议。语气像一位阅历丰富的老者，温暖有智慧。全中文。")
+                .openingLine("年轻人，来坐坐。让我看看你的气质底色 🔥\n\n我先问你一个问题——\n\n**当遇到一件让你特别生气的事情时，你的反应更接近于哪一种？\nA) 当场爆发，说完就完事 🔥\nB) 当场不说，但心里记很久 🌊\nC) 冷静分析，想办法解决 🌱**")
+                .build()
+        );
+        aiAssessmentTypeRepository.saveAll(types);
     }
 }

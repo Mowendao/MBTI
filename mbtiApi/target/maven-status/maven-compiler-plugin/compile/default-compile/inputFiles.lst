@@ -1,6 +1,7 @@
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\PersonalityDimensionController.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\question\QuestionService.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\TestTaker.java
+D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\AiAssessmentPublicController.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\user\UserRepository.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\TestTakerRepository.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\test\TestResultRepository.java
@@ -18,6 +19,7 @@ D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\config\DataInitializ
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\auth\dto\LoginRequest.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\MbtiApplication.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\BatchController.java
+D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\AiAssessmentTypeController.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\AssessmentType.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\Batch.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\user\UserController.java
@@ -25,6 +27,7 @@ D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\Assessm
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\career\CareerController.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\question\QuestionController.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\AssessmentTypeController.java
+D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\AiAssessmentTypeRepository.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\auth\dto\AuthResponse.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\PersonalityDimensionRepository.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\user\User.java
@@ -32,6 +35,7 @@ D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\TestSch
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\career\CareerService.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\auth\dto\RegisterRequest.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\test\dto\SubmitRequest.java
+D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\entity\AiAssessmentType.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\admin\TestScheduleController.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\test\dto\SubmitResponse.java
 D:\Claude Code Projects\MBTI\mbtiApi\src\main\java\com\mbti\test\TestController.java

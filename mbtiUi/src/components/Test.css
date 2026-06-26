@@ -1,3 +1,14 @@
+/* ===== 🧪 标准测试 - 海洋青蓝 Theme ===== */
+:root {
+  --test-start: #00b894;
+  --test-end: #00cec9;
+}
+
+.test-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e8f8f5 0%, #d5f5e3 50%, #e8f8f5 100%);
+}
+
 .test-container {
   max-width: 800px;
   margin: 0 auto;
@@ -10,14 +21,17 @@
 }
 
 .test-header h1 {
-  color: var(--text-primary);
+  color: #0a3d3a;
   margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .progress-bar {
   width: 100%;
   height: 10px;
-  background-color: #e0e0e0;
+  background-color: rgba(0,184,148,0.15);
   border-radius: 5px;
   overflow: hidden;
   margin-bottom: 0.5rem;
@@ -25,40 +39,38 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--primary-gradient);
+  background: linear-gradient(135deg, var(--test-start), var(--test-end));
   transition: width 0.3s ease;
 }
 
 .progress-text {
-  color: var(--text-secondary);
+  color: #0a3d3a;
   font-size: 0.9rem;
+  opacity: 0.7;
 }
 
 .question-card {
-  background-color: var(--bg-white);
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
   padding: 2.5rem;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0,184,148,0.08);
   margin-bottom: 2rem;
   animation: questionSlideIn 0.35s ease-out;
+  border: 1px solid rgba(0,184,148,0.08);
 }
 
 .question-card h2 {
-  color: var(--text-primary);
+  color: #0a3d3a;
   margin-bottom: 2rem;
   font-size: 1.3rem;
   line-height: 1.5;
+  font-weight: 700;
 }
 
 @keyframes questionSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .options-container {
@@ -69,20 +81,22 @@
 
 .option-button {
   padding: 1rem 1.5rem;
-  border: 2px solid #e0e0e0;
-  border-radius: var(--radius-sm);
-  background-color: var(--bg-white);
-  color: var(--text-primary);
+  border: 2px solid rgba(0,184,148,0.15);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.8);
+  color: #0a3d3a;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
+  font-weight: 500;
 }
 
 .option-button:hover {
-  border-color: var(--primary-start);
-  background-color: #f5f5ff;
+  border-color: var(--test-start);
+  background: rgba(0,184,148,0.06);
   transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,184,148,0.12);
 }
 
 .option-button:active {
@@ -90,10 +104,11 @@
 }
 
 .option-button.option-selected {
-  border-color: var(--primary-start);
-  background: linear-gradient(135deg, rgba(102,126,234,0.12) 0%, rgba(118,75,162,0.12) 100%);
-  color: var(--primary-start);
-  font-weight: 600;
+  border-color: var(--test-start);
+  background: linear-gradient(135deg, rgba(0,184,148,0.12) 0%, rgba(0,206,201,0.12) 100%);
+  color: #00897b;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0,184,148,0.15);
 }
 
 .option-button:disabled {
@@ -103,14 +118,15 @@
 }
 
 .test-login-hint {
-  background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
-  border: 1px solid rgba(102,126,234,0.25);
-  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, rgba(0,184,148,0.08) 0%, rgba(0,206,201,0.08) 100%);
+  border: 1px solid rgba(0,184,148,0.2);
+  border-radius: 14px;
   padding: 0.75rem 1.25rem;
   margin-bottom: 1.5rem;
   text-align: center;
   font-size: 0.9rem;
-  color: var(--primary-start);
+  color: #00897b;
+  font-weight: 500;
 }
 
 .test-navigation {
@@ -123,37 +139,40 @@
 .nav-button {
   padding: 0.8rem 1.5rem;
   border: none;
-  border-radius: var(--radius-sm);
-  background-color: var(--primary-start);
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--test-start), var(--test-end));
   color: white;
   font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,184,148,0.2);
 }
 
 .nav-button:hover {
-  background-color: var(--primary-end);
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,184,148,0.3);
 }
 
 .question-number {
-  color: var(--text-secondary);
+  color: #0a3d3a;
   font-size: 0.9rem;
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {
   .test-container {
     padding: 1rem;
   }
-  
+
   .question-card {
     padding: 1.5rem;
   }
-  
+
   .question-card h2 {
     font-size: 1.1rem;
   }
-  
+
   .option-button {
     padding: 0.8rem 1.2rem;
     font-size: 0.9rem;

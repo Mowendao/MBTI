@@ -15,12 +15,13 @@ export default function History() {
 
   if (!user) {
     return (
-      <div className="history-container page-transition">
+      <div className="history-page"><div className="history-container page-transition">
         <h1>测试历史</h1>
         <div className="history-empty">
           <p>请先登录 / 注册后再查看历史记录。</p>
           <button className="primary-button" onClick={() => navigate('/')}>返回首页</button>
         </div>
+      </div>
       </div>
     );
   }
@@ -28,7 +29,7 @@ export default function History() {
   const results = [...(user.testResults || [])].reverse();
 
   return (
-    <div className="history-container page-transition">
+    <div className="history-page"><div className="history-container page-transition">
       <h1>测试历史记录</h1>
       <p className="history-subtitle">{user.name}，共 {results.length} 次测试</p>
 
@@ -77,6 +78,7 @@ export default function History() {
           })}
         </div>
       )}
+    </div>
     </div>
   );
 }

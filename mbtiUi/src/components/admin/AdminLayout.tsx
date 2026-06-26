@@ -13,6 +13,7 @@ const navItems = [
   { name: '测试安排管理', path: '/admin/schedules', icon: '📅' },
   { name: '参测人员管理', path: '/admin/test-takers', icon: '👥' },
   { name: '性格分析', path: '/admin/analysis', icon: '🔍' },
+  { name: 'AI 评估类型', path: '/admin/ai-types', icon: '🧠' },
   { name: 'API 设置', path: '/admin/api-settings', icon: '🔑' },
 ];
 

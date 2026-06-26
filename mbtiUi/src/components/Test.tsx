@@ -53,7 +53,7 @@ const Test: React.FC = () => {
   const current = questions[currentQuestion];
 
   return (
-    <div className="test-container page-transition">
+    <div className="test-page"><div className="test-container page-transition">
       {!user && (
         <div className="test-login-hint">
           <span>💡 登录后测试结果将保存到你的账户</span>
@@ -109,6 +109,7 @@ const Test: React.FC = () => {
           </button>
         )}
       </div>
+    </div>
     </div>
   );
 };

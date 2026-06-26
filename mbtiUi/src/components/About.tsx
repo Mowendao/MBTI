@@ -4,7 +4,7 @@ import '@/components/About.css';
 
 const About: React.FC = () => {
   return (
-    <div className="about-container page-transition">
+    <div className="about-page"><div className="about-container page-transition">
       <h1>关于MBTI性格测试</h1>
       
       <div className="about-section">
@@ -39,6 +39,7 @@ const About: React.FC = () => {
         <Link to="/test" className="primary-button">开始测试</Link>
         <Link to="/" className="secondary-button">返回首页</Link>
       </div>
+    </div>
     </div>
   );
 };

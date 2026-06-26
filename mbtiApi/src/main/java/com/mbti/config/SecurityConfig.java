@@ -33,6 +33,7 @@ public class SecurityConfig {
                 // Public endpoints
                 .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/questions", "/api/questions/stats").permitAll()
+                .requestMatchers("/api/ai-assessment-types").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 // Any other request requires authentication
                 .anyRequest().authenticated()

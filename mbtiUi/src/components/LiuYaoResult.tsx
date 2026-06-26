@@ -80,7 +80,7 @@ export default function LiuYaoResult() {
   const isDivination = mode === 'divination';
 
   return (
-    <div className="liuyao-container page-transition">
+    <div className="liuyao-page"><div className="liuyao-container page-transition">
       {/* 标题 */}
       <div className="liuyao-result-header">
         <h1>{isDivination ? '🔮 卦象解读' : '🔮 你的易经性格卦象'}</h1>
@@ -233,6 +233,7 @@ export default function LiuYaoResult() {
           )}
         </div>
       )}
+    </div>
     </div>
   );
 }

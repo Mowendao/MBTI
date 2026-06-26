@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { QRCodeSVG } from 'qrcode.react';
+import html2pdf from 'html2pdf.js';
 import { TestResult } from '@/types/mbti';
 import { getMBTIDescription } from '@/utils/mbti';
 import { generatePersonalityReport } from '@/utils/personalityAnalysis';
@@ -43,7 +45,15 @@ const Result: React.FC = () => {
     { name: '判断(J) vs 感知(P)', primary: 'J', secondary: 'P' }
   ];
 
-  const [copied, setCopied] = useState(false);
+  const TYPE_COLORS: Record<string, string> = {
+    ISTJ: '#4A90D9', ISFJ: '#7B9BA6', INFJ: '#9B59B6', INTJ: '#2C3E50',
+    ISTP: '#27AE60', ISFP: '#E67E22', INFP: '#E91E8A', INTP: '#3498DB',
+    ESTP: '#F39C12', ESFP: '#FF6B6B', ENFP: '#FF9FF3', ENTP: '#00CEC9',
+    ESTJ: '#2ECC71', ESFJ: '#FD79A8', ENFJ: '#6C5CE7', ENTJ: '#E74C3C',
+  };
+
+  const [showShare, setShowShare] = useState(false);
+  const posterRef = useRef<HTMLDivElement>(null);
   const [aiAnalysis, setAiAnalysis] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState('');
@@ -65,21 +75,27 @@ const Result: React.FC = () => {
       setAiError(res.error);
     }
   };
-  const handleShare = () => {
-    const text = `我的 MBTI 测试结果: ${type} - ${description}\n\n` +
-      `E: ${percentage.E}% | I: ${percentage.I}%\n` +
-      `S: ${percentage.S}% | N: ${percentage.N}%\n` +
-      `T: ${percentage.T}% | F: ${percentage.F}%\n` +
-      `J: ${percentage.J}% | P: ${percentage.P}%\n\n` +
-      `来自 MBTI 性格测试与就业推荐系统`;
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+  const shareUrl = `${window.location.origin}/share?type=${type}` +
+    `&E=${Math.round(percentage.E)}&I=${Math.round(percentage.I)}` +
+    `&S=${Math.round(percentage.S)}&N=${Math.round(percentage.N)}` +
+    `&T=${Math.round(percentage.T)}&F=${Math.round(percentage.F)}` +
+    `&J=${Math.round(percentage.J)}&P=${Math.round(percentage.P)}`;
+
+  const handleShare = () => setShowShare(true);
+
+  const handleDownloadPoster = () => {
+    if (!posterRef.current) return;
+    html2pdf().from(posterRef.current).set({
+      margin: 0,
+      filename: `MBTI_${type}_海报.pdf`,
+      image: { type: 'jpeg', quality: 0.95 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+    }).save();
   };
 
   return (
-    <div className="result-container page-transition">
+    <div className="result-page"><div className="result-container page-transition">
       <div className="result-header">
         <h1>你的MBTI性格类型</h1>
         <div className="type-card">
@@ -210,7 +226,7 @@ const Result: React.FC = () => {
           历史记录
         </button>
         <button className="action-button secondary" onClick={handleShare}>
-          {copied ? '已复制!' : '分享结果'}
+          📤 分享海报
         </button>
         <button className="action-button" onClick={() => {
           const html = generateMBTIReport(result);
@@ -256,6 +272,58 @@ const Result: React.FC = () => {
           )}
         </div>
       )}
+
+      {/* 分享海报弹窗 */}
+      {showShare && (
+        <div className="qr-modal-overlay" onClick={() => setShowShare(false)}>
+          <div className="qr-modal share-modal" onClick={e => e.stopPropagation()}>
+            <button className="qr-modal-close" onClick={() => setShowShare(false)}>✕</button>
+            <h2>分享你的 MBTI 结果</h2>
+
+            {/* 海报预览 */}
+            <div className="poster-preview" ref={posterRef} style={{ '--accent': TYPE_COLORS[type] || '#667eea', '--accent-dark': (TYPE_COLORS[type] || '#667eea') + 'b3' } as React.CSSProperties}>
+              <div className="pp-wave" />
+              <div className="pp-inner">
+                <div className="pp-badge">MBTI 性格测试</div>
+                <div className="pp-type">{type}</div>
+                <div className="pp-desc">{description}</div>
+                <div className="pp-divider" />
+                {Object.entries(percentage).reduce((acc, _entry, i, arr) => {
+                  if (i % 2 === 0) {
+                    const left = arr[i];
+                    const right = arr[i + 1];
+                    if (!right) return acc;
+                    const label = ({ E: 'E/I', S: 'S/N', T: 'T/F', J: 'J/P' } as any)[left[0]] || '';
+                    acc.push({ label, leftPct: left[1], rightPct: right[1] });
+                  }
+                  return acc;
+                }, [] as { label: string; leftPct: number; rightPct: number }[]).map((d, i) => (
+                  <div key={i} className="pp-dim" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                    <span style={{ width: 36, fontSize: '0.7rem', fontWeight: 700, color: 'var(--accent)', textAlign: 'right', flexShrink: 0 }}>{d.label}</span>
+                    <div style={{ flex: 1, display: 'flex', height: 20, borderRadius: 10, overflow: 'hidden', background: '#f0f0f0' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--accent)', color: '#fff', fontSize: '0.6rem', fontWeight: 600, width: `${d.leftPct}%`, minWidth: 0 }}>{d.leftPct > 15 && `${Math.round(d.leftPct)}%`}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#e8e8e8', color: '#aaa', fontSize: '0.6rem', fontWeight: 600, width: `${d.rightPct}%`, minWidth: 0 }}>{d.rightPct > 15 && `${Math.round(d.rightPct)}%`}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="pp-footer">MBTI 性格测试与就业推荐系统</div>
+            </div>
+
+            {/* 二维码 */}
+            <div className="share-row">
+              <div className="share-qr-wrap">
+                <QRCodeSVG value={shareUrl} size={100} level="M" />
+              </div>
+              <div className="share-dl-wrap">
+                <button className="poster-btn primary" onClick={handleDownloadPoster}>📥 保存 PDF</button>
+                <span className="share-hint">微信扫码也可自动下载 PDF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
     </div>
   );
 };

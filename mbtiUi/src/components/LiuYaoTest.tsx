@@ -73,7 +73,7 @@ export default function LiuYaoTest() {
   // ===== 模式选择页 =====
   if (phase === 'mode_select') {
     return (
-      <div className="liuyao-container page-transition">
+      <div className="liuyao-page"><div className="liuyao-container page-transition">
         <div className="liuyao-header">
           <h1>☯️ 六爻 · 易经智慧</h1>
           <p className="liuyao-subtitle">选择你感兴趣的测试方式</p>
@@ -99,13 +99,14 @@ export default function LiuYaoTest() {
           <p>💡 两种模式都可以获得 AI 深度分析，需要先配置 API Key</p>
         </div>
       </div>
+    </div>
     );
   }
 
   // ===== 问卦模式：输入问题 =====
   if (phase === 'question_input') {
     return (
-      <div className="liuyao-container page-transition">
+      <div className="liuyao-page"><div className="liuyao-container page-transition">
         <div className="liuyao-header">
           <h1>🔮 问卦 · 请说出你的困惑</h1>
           <p className="liuyao-subtitle">在心中专注地想着你的问题，然后写下来</p>
@@ -137,13 +138,14 @@ export default function LiuYaoTest() {
           </div>
         </div>
       </div>
+    </div>
     );
   }
 
   // ===== 摇卦动画 =====
   if (phase === 'shaking') {
     return (
-      <div className="liuyao-container page-transition">
+      <div className="liuyao-page"><div className="liuyao-container page-transition">
         <div className="liuyao-header">
           <h1>🎴 摇卦中...</h1>
           <p className="liuyao-subtitle">心诚则灵，卦象正在生成</p>
@@ -172,12 +174,13 @@ export default function LiuYaoTest() {
           <p className="shaking-question">「{userQuestion}」</p>
         </div>
       </div>
+    </div>
     );
   }
 
   // ===== 答题模式（职业性格测试） =====
   return (
-    <div className="liuyao-container page-transition">
+    <div className="liuyao-page"><div className="liuyao-container page-transition">
       <div className="liuyao-header">
         <h1>{mode === 'career' ? '🧭 六爻 · 职业性格测试' : '⚡ 六爻 · 易经性格测试'}</h1>
         <p className="liuyao-subtitle">
@@ -236,5 +239,6 @@ export default function LiuYaoTest() {
         <p className="liuyao-preview-label">已选 / 共 6 爻</p>
       </div>
     </div>
+  </div>
   );
 }
